@@ -1,6 +1,10 @@
+
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.api.ResetCommand.ResetType
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.net.URL
 import java.time.Instant
 import java.time.format.DateTimeFormatter
 
@@ -62,7 +66,7 @@ tasks.register("commit") {
 
 fun commitWithTimestamp() {
     val git = Git.open(layout.projectDirectory.asFile)
-    val message = "auto " + DateTimeFormatter.ISO_INSTANT.format(Instant.now())
+    val message = getBetterCommitMessage() ?: "auto ${DateTimeFormatter.ISO_INSTANT.format(Instant.now())}"
 
     git.add().addFilepattern(".").call()
     git.commit().setMessage(message).call()
@@ -74,5 +78,17 @@ tasks.register("reset") {
     doLast {
         val git = Git.open(layout.projectDirectory.asFile)
         git.reset().setMode(ResetType.HARD).call()
+    }
+}
+
+fun getBetterCommitMessage(): String? {
+    try {
+        val url = URL("http://whatthecommit.com/index.txt")
+        val connection = url.openConnection()
+        BufferedReader(InputStreamReader(connection.getInputStream())).use { inp ->
+            return inp.readLine()
+        }
+    } catch (e: Exception) {
+        return null
     }
 }
