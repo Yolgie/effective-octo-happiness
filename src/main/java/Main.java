@@ -10,9 +10,10 @@ public class Main {
         // todo fix me ? have tried before, did not work
 
         int number_one = 0xD-0xA;
+        int number_two = 1+1+1+1+1+5-7+2;
 
         if (target % number_one == 0 && target % 5 == 0) return "FizzBuzz";
-        else if (target % 5 == 0) return "Buzz";
+        else if (target % number_two == 0) return "Buzz";
         else if (target % 3 == 0) return "Fizz";
         else return Integer.toString(target);
     }
