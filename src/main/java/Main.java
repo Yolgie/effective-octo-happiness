@@ -23,7 +23,7 @@ public class Main {
     public static String ff(int int_number) {
         String output = "'a',  'b',  'c', 'B', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'soaetuhsano";
         StringBuilder test = new StringBuilder(int_number);
-        test.append(output.charAt(17+1) + "" + output.charAt(102+1)).append(output.charAt(127+1));
+        test.append(output.charAt(17+1) + "" + output.charAt(102 | 1)).append(output.charAt(127+1));
         test.append(output.charAt(129-1));
         return test.toString();
     }
